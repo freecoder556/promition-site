@@ -5,8 +5,230 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    *, html, body{
+      margin: 0;
+      padding: 0;
+    }
+
+    body{
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-size: larger;
+      color:#4b5563;
+      font-family: sans-serif;
+    }
+
+    a{
+      text-decoration: none;
+      color:#4b5563;
+    }
+
+
+
+    main{
+      flex: 9;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #main{
+      display: flex;
+      flex: 5;
+      max-height: 50vh;
+    }
+
+    #main-left{
+      /* border: 2px solid black; */
+      flex: 1;
+      overflow: scroll;
+    }
+
+    iframe{
+      height: 100%;
+      width: 100%;
+    }
+    
+    #main-right{
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+
+
+
+    #twitter-list{
+      flex: 5;
+      /* border: 1px solid red; */
+      font-size: larger;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .twitter-list-text{
+      flex-shrink: 1;
+      height: 2rem;
+      /* border: 1px solid blueviolet; */
+      text-align: center;
+    }
+    
+    ul{
+      --li-size: 7rem;
+      list-style: none;
+      font-size: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
+
+    li{
+      display: inline-block;
+      /* border: 1px solid red; */
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: var(--li-size);
+      width: 16rem;
+      text-align: center;
+      margin: 1rem;
+    }
+
+    .avatar-box{
+      --avatar-size: 4rem;
+      width: var(--avatar-size);
+      height: var(--avatar-size);
+      overflow: hidden;
+      border-radius: 50%;
+    }
+
+
+    img{
+      object-fit: contain;
+    }
+
+
+    .personal-desc{
+      overflow: hidden;
+      flex-direction: column;
+      /* border: 1px solid red; */
+      font-size: 1.4rem;
+      align-items: center;
+    }
+
+    p{
+      font-size: .9rem;
+      color: rgb(162, 164, 165);
+    }
+
+ 
+    footer{
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #card{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40vw;
+      height: 25vh;
+      background-color:#f8fafc;
+      border-radius:16px;
+      color:#4b5563;
+      display:flex;
+      flex-direction:column;
+      grid-area:auto;
+      line-height:24px;
+      padding:32px 20px;
+      box-shadow: 1px 1px 5px rgb(221, 221, 221);
+    }
+
+    #card-price{
+      display: flex;
+      justify-content: space-around;
+      align-items: baseline;
+    }
+    #current-price{
+      border-radius: 1rem;
+      line-height: 5rem;
+      text-align: center;
+      margin-left: 2rem;
+      background-color: #fff;
+    }
+
+    #card-handler{
+      display: flex;
+      justify-content: space-around;
+      align-items: baseline;
+      width: 30vw;
+    }
+    #card-handler-text{
+      min-width: 13rem;;
+    }
+
+  </style>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  
+<body >
+  <main>
+    <section id="main">
+      <div id="main-left">
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><a class="twitter-timeline" data-lang="zh-cn" href="https://twitter.com/cellinlab?ref_src=twsrc%5Etfw">Tweets by cellinlab</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+      <div id="main-right">
+        <div id="card">
+          <div id="card-price" class="mb-6"> 
+            <div class="text-3xl font-bold">当前推广价格</div>
+            <div id="current-price" class="px-6 text-5xl font-bold bg-slate-500 shadow-lg shadow-slate-500/50">50rmb</div>
+          </div>
+          <div id="card-handler">
+            <span id="card-handler-text" class="text-xl font-bold">按当前价格直接交易，</span>  
+            <button id="contact-btn" class="block w-full rounded-md bg-slate-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 btn-color">联系@cellinlab</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="twitter-list" class="p-8">
+      <div id="twitter-list-header" class="twitter-list-text text-3xl font-bold">
+        拥有友情价格的人:
+       </div>
+     <ul id="list">
+      <li><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><span href="#" target="_blank">ekko</span><a href="https://twitter.com/ITACSpace?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @ITACSpace</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div></li>
+      <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
+      <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
+      <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
+       <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
+       <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
+       <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
+       <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
+       <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
+       <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
+     </ul>
+     <div id="twitter-list-footer"  class="twitter-list-text text-3xl font-bold">
+      你可以联系他们获得xxxx
+     </div>
+    </section>
+  </main>
+  <footer class=" text-sm font-sans leading-6 text-current-900 p-8">
+    本页面由
+    <a href="https://www.baidu.com" class="mx-3 block rounded-md bg-slate-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ">
+      @ITACSpace
+    </a>
+    友情提供
+  </footer>
 </body>
+<script>
+  const contactBtn = document.querySelector('#contact-btn');
+  contactBtn.addEventListener('click', (e) => {
+    alert('扫码微信添加好友')
+  })
+</script>
 </html>
