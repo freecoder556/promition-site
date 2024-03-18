@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>cellinlab promotion-site</title>
   <style>
     *, html, body{
       margin: 0;
@@ -14,6 +14,7 @@
     body{
       height: 100vh;
       display: flex;
+      position: relative;
       flex-direction: column;
       font-size: larger;
       color:#4b5563;
@@ -43,6 +44,8 @@
       /* border: 2px solid black; */
       flex: 1;
       overflow: scroll;
+      /* min-width: 350px; */
+      flex-shrink: 1;
     }
 
     iframe{
@@ -67,6 +70,7 @@
       font-size: larger;
       display: flex;
       flex-direction: column;
+      width: 100vw;
     }
 
     .twitter-list-text{
@@ -138,6 +142,7 @@
       justify-content: center;
       align-items: center;
       width: 40vw;
+      min-width: 480px;
       height: 25vh;
       background-color:#f8fafc;
       border-radius:16px;
@@ -173,12 +178,53 @@
       min-width: 13rem;;
     }
 
+    #pop-up{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 480px;
+      background-color:#f8fafc;
+      border-radius:16px;
+      color:#4b5563;
+      grid-area:auto;
+      line-height:24px;
+      padding:32px 20px;
+      box-shadow: 1px 1px 5px rgb(221, 221, 221);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      position: absolute;
+      left: 50%;
+      top: 30%;
+      transform: translateX(-50%);
+      width: 40rem;
+      height: 27rem;
+      transition: all .3s;
+    }
+
+    #pop-up-title{
+      flex: 1;
+    }
+    #pop-up-img-container{
+      display: flex;
+      flex: 6;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      padding: 10rem;
+    }
+
+    #pop-up-img{
+      object-fit: contain;
+      flex: 2;
+    }
+
   </style>
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body >
-  <main>
+  <main class="bg">
     <section id="main">
       <div id="main-left">
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><a class="twitter-timeline" data-lang="zh-cn" href="https://twitter.com/cellinlab?ref_src=twsrc%5Etfw">Tweets by cellinlab</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -201,7 +247,7 @@
         拥有友情价格的人:
        </div>
      <ul id="list">
-      <li><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><span href="#" target="_blank">ekko</span><a href="https://twitter.com/ITACSpace?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @ITACSpace</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div></li>
+      <li><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><span href="#" target="_blank">ekko</span><a  href="https://twitter.com/ITACSpace?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @ITACSpace</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div></li>
       <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
       <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
       <li ><div class="avatar-box"><img src="./asssets/avatar/头像—渐进.jpg" alt=""></div><div class="personal-desc"><a href="#" target="_black">xxxx</a><p>@ITACSpace</p></div></li>
@@ -217,18 +263,59 @@
      </div>
     </section>
   </main>
-  <footer class=" text-sm font-sans leading-6 text-current-900 p-8">
+  <footer class="bg text-sm font-sans leading-6 text-current-900 p-8">
     本页面由
     <a href="https://www.baidu.com" class="mx-3 block rounded-md bg-slate-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ">
       @ITACSpace
     </a>
     友情提供
   </footer>
+  <div id="pop-up">
+      <h2 id="pop-up-title " class="text-3xl font-bold">扫码添加微信好友</h2>
+        <div id="pop-up-img-container"> 
+          <img id="pop-up-img" src="./asssets/avatar/头像—渐进.jpg" alt="微信二维码">
+        </div>
+      <!-- <button id="pop-up-close-btn">关闭弹窗</button> -->
+      <button id="pop-up-close-btn" class="block w-full rounded-md bg-slate-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 btn-color">关闭弹窗</button>
+  </div>
 </body>
 <script>
-  const contactBtn = document.querySelector('#contact-btn');
-  contactBtn.addEventListener('click', (e) => {
-    alert('扫码微信添加好友')
+  let currentFansCount = 50;
+  const priceDom = document.querySelector('#current-price');
+  const result = fetch('https://z9udky3yaq.us.aircode.run/getProfile').then(rawRes => {
+    rawRes.json().then(res => {
+      const { result } = res;
+      currentFansCount = ((result - 3300) / 100) * 10 + 88;
+      priceDom.innerText = `${currentFansCount}rmb`
+    })
   })
+
+  const popUpDom = document.querySelector('#pop-up');
+  const popUpConfirmBtn = document.querySelector('#pop-up-close-btn')
+  
+  popUpConfirmBtn.addEventListener('click', () => {
+    popUpDom.style.opacity = 0;
+    popUpDom.style.transform = 'translateX(-50%)'
+    bgDoms.forEach((dom) => {
+      dom.style.filter = ''
+    })
+  })
+
+  const contactBtn = document.querySelector('#contact-btn');
+
+  const bgDoms = document.querySelectorAll('.bg');
+
+  contactBtn.addEventListener('click', (e) => {
+    popUpDom.style.transform = 'translateX(-50%) translateY(-10%)'
+    // alert('扫码微信添加好友')
+    popUpDom.style.opacity = 1;
+    bgDoms.forEach((dom) => {
+      dom.style.filter = 'blur(30px) '
+    })
+  })
+
+
+
+  
 </script>
 </html>
